@@ -32,7 +32,7 @@ namespace PoliceWebApplication
         {
             if (!optionsBuilder.IsConfigured)
             {
-                
+                int g = 5;
             }
         }
 

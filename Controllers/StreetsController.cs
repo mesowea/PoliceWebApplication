@@ -19,10 +19,13 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Streets
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, string? name)
         {
-            var dBPoliceContext = _context.Streets.Include(s => s.City);
-            return View(await dBPoliceContext.ToListAsync());
+            if (id == null) return View(await _context.Streets.ToListAsync());
+            ViewBag.CityId = id;
+            ViewBag.CityName = name;
+            var streetsOfTheCity = _context.Streets.Where(b=>b.CityId == id).Include(b => b.City);
+            return View(await streetsOfTheCity.ToListAsync());
         }
 
         // GET: Streets/Details/5
@@ -56,7 +59,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,CityId")] Street street)
+        public async Task<IActionResult> Create([Bind("Name,CityId")] Street street)
         {
             if (ModelState.IsValid)
             {
@@ -115,7 +118,7 @@ namespace PoliceWebApplication.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Streets");
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
             return View(street);
@@ -148,7 +151,7 @@ namespace PoliceWebApplication.Controllers
             var street = await _context.Streets.FindAsync(id);
             _context.Streets.Remove(street);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Streets");
         }
 
         private bool StreetExists(int id)

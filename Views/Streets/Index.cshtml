@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PoliceWebApplication.Street>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Вулиці міста";
 }
 
-<h1>Index</h1>
+<h1>Вулиці міста @ViewBag.CityName </h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewBag.CityId">Додати нову вулицю</a>
 </p>
 <table class="table">
     <thead>

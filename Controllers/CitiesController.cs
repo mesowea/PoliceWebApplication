@@ -39,7 +39,8 @@ namespace PoliceWebApplication.Controllers
                 return NotFound();
             }
 
-            return View(city);
+            //return View(city);
+            return RedirectToAction("Index", "Streets", new { id = city.Id, name = city.Name });
         }
 
         // GET: Cities/Create
