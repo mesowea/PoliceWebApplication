@@ -165,3 +165,13 @@ C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\runtimes\win-a
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\runtimes\win-arm64\native\e_sqlite3.dll
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\runtimes\win-x64\native\e_sqlite3.dll
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\runtimes\win-x86\native\e_sqlite3.dll
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Departments\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Departments\Delete.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Departments\Details.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Departments\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Departments\Index.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cities\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cities\Delete.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cities\Details.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cities\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cities\Index.cshtml.g.cs
