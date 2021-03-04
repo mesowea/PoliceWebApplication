@@ -1,13 +1,17 @@
 ﻿@model IEnumerable<PoliceWebApplication.Department>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Відділки за вулицею";
 }
 
-<h1>Index</h1>
+<h1>Відділки на вулиці  @ViewBag.StreetName </h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" asp-route-id="@ViewBag.StreetId">Додати відділок</a>
+</p>
+
+<p>
+    <a asp-action="Return">Назад</a>
 </p>
 <table class="table">
     <thead>
@@ -15,6 +19,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.House)
             </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Street)
             </th>
@@ -39,3 +44,4 @@
 }
     </tbody>
 </table>
+

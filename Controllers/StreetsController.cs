@@ -21,13 +21,18 @@ namespace PoliceWebApplication.Controllers
         // GET: Streets
         public async Task<IActionResult> Index(int? id, string? name)
         {
-            if (id == null) return View(await _context.Streets.ToListAsync());
+            if (id == null) return RedirectToAction("Index", "Cities");
+
             ViewBag.CityId = id;
             ViewBag.CityName = name;
             var streetsOfTheCity = _context.Streets.Where(b=>b.CityId == id).Include(b => b.City);
             return View(await streetsOfTheCity.ToListAsync());
         }
-
+        // GET: Streets/Return
+        public IActionResult Return()
+        {
+            return RedirectToAction("Index", "Cities");
+        }
         // GET: Streets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,13 +49,16 @@ namespace PoliceWebApplication.Controllers
                 return NotFound();
             }
 
-            return View(street);
+            //return View(street);
+            return RedirectToAction("Index", "Departments", new { id = street.Id, name = street.Name });
         }
-
+       
         // GET: Streets/Create
-        public IActionResult Create()
+        public IActionResult Create(int cityId)
         {
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name");
+            //ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", id);
+            ViewBag.CityId = cityId;
+            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
             return View();
         }
 
@@ -59,16 +67,19 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,CityId")] Street street)
+        public async Task<IActionResult> Create(int cityId, [Bind("Id,Name,CityId")] Street street)
         {
+            street.CityId = cityId;
             if (ModelState.IsValid)
             {
                 _context.Add(street);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
-            return View(street);
+            //ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name");
+            //return View(street);
+            return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });
         }
 
         // GET: Streets/Edit/5
@@ -118,7 +129,7 @@ namespace PoliceWebApplication.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", "Streets");
+                return RedirectToAction(nameof(Index));
             }
             ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
             return View(street);
@@ -151,7 +162,7 @@ namespace PoliceWebApplication.Controllers
             var street = await _context.Streets.FindAsync(id);
             _context.Streets.Remove(street);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Streets");
+            return RedirectToAction(nameof(Index));
         }
 
         private bool StreetExists(int id)

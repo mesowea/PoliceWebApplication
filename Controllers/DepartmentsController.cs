@@ -19,10 +19,19 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Departments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id, string? name)
         {
-            var dBPoliceContext = _context.Departments.Include(d => d.Street);
-            return View(await dBPoliceContext.ToListAsync());
+            if (id == null) return RedirectToAction("Index", "Streets");
+
+            ViewBag.StreetId = id;
+            ViewBag.StreetName = name;
+            var departmentByStreet = _context.Departments.Where(b => b.StreetId == id).Include(b => b.Street);
+            return View(await departmentByStreet.ToListAsync());
+        }
+        //  GET: Departments/Return
+        public IActionResult Return()
+        {
+            return RedirectToAction("Index", "Streets");
         }
 
         // GET: Departments/Details/5
@@ -45,9 +54,13 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Departments/Create
-        public IActionResult Create()
+        public IActionResult Go()
         {
-            ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name");
+            return RedirectToAction("Index", "Streets");
+        }
+        public IActionResult Create(int? id)
+        {
+            ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", id);
             return View();
         }
 
@@ -56,7 +69,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StreetId,House")] Department department)
+        public async Task<IActionResult> Create([Bind("StreetId,House")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +78,7 @@ namespace PoliceWebApplication.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
-            return View(department);
+            return RedirectToAction("Index", "Streets");
         }
 
         // GET: Departments/Edit/5

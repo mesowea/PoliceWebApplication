@@ -9,7 +9,6 @@ C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\ref\PoliceWebA
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\PoliceWebApplication.pdb
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\PoliceWebApplication.Views.dll
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Debug\net5.0\PoliceWebApplication.Views.pdb
-C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.csprojAssemblyReference.cache
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.AssemblyInfoInputs.cache
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.AssemblyInfo.cs
