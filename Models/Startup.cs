@@ -12,7 +12,7 @@ using PoliceWebApplication.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace PoliceWebApplication
-{
+{gfg
     public class Startup
     {
         public Startup(IConfiguration configuration)
