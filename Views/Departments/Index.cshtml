@@ -7,22 +7,24 @@
 <h1>Відділки на вулиці  @ViewBag.StreetName </h1>
 
 <p>
-    <a asp-action="Create" asp-route-id="@ViewBag.StreetId">Додати відділок</a>
+    @Html.ActionLink("Додати новий відділок", "Create", new { streetId = @ViewBag.StreetId})
 </p>
 
 <p>
-    <a asp-action="Return">Назад</a>
+    @Html.ActionLink("Назад", "Return", new { streetId = ViewBag.StreetId})
 </p>
+
 <table class="table">
     <thead>
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.House)
             </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Street)
-            </th>
+            @*
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+            *@
             <th></th>
         </tr>
     </thead>
@@ -32,14 +34,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.House)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Street.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            @*
+        <td>
+            @Html.DisplayFor(modelItem => item.Street.Name)
+        </td>
+            *@
+        <td>
+            @Html.ActionLink("Змінити", "Edit", new { streetId = @ViewBag.StreetId, deptId = item.Id }) |
+            <a asp-action="Details" asp-route-id="@item.Id">Слідчі</a> |
+            @Html.ActionLink("Видалити", "Delete", new { streetId = @ViewBag.StreetId, deptId = item.Id})
+        </td>
         </tr>
 }
     </tbody>

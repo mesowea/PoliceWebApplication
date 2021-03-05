@@ -19,13 +19,14 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Streets
-        public async Task<IActionResult> Index(int? id, string? name)
+        public async Task<IActionResult> Index(int? id, string? name) 
         {
             if (id == null) return RedirectToAction("Index", "Cities");
 
             ViewBag.CityId = id;
             ViewBag.CityName = name;
-            var streetsOfTheCity = _context.Streets.Where(b => b.CityId == id).Include(b => b.City);
+
+            var streetsOfTheCity = _context.Streets.Where(s => s.CityId == id).Include(s => s.City);
             return View(await streetsOfTheCity.ToListAsync());
         }
         // GET: Streets/Return
@@ -67,9 +68,9 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int cityId, [Bind("Id,Name,CityId")] Street street)
+        public async Task<IActionResult> Create([Bind("Id,Name,CityId")] Street street)
         {
-            street.CityId = cityId;
+            int cityId = street.CityId;
             if (ModelState.IsValid)
             {
                 _context.Add(street);
@@ -83,20 +84,22 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Streets/Edit/5
-        public async Task<IActionResult> Edit(int cityId, int? itemId)
+        public async Task<IActionResult> Edit(int cityId, int? streetId)
         {
-            if (itemId == null)
+            ViewBag.CityId = cityId;
+            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
+
+            if (streetId == null)
             {
                 return NotFound();
             }
 
-            var street = await _context.Streets.FindAsync(itemId);
+            var street = await _context.Streets.FindAsync(streetId);
             if (street == null)
             {
                 return NotFound();
             }
-            ViewBag.CityId = cityId;
-            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
+           
             //ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
             return View(street);
         }
@@ -106,14 +109,15 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int cityId, int id, [Bind("Id,Name,CityId")] Street street)
+        public async Task<IActionResult> Edit(int cityId, [Bind("Id,Name,CityId")] Street street)
         {
-            street.CityId = cityId;
-            if (id != street.Id)
+            //street.CityId = cityId;
+            /*
+            if (streetId == street.Id)
             {
                 return NotFound();
             }
-
+            */
             if (ModelState.IsValid)
             {
                 try
@@ -141,19 +145,20 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Streets/Delete/5
-        public async Task<IActionResult> Delete(int cityId, int itemId)
-        {
-            ViewBag.CityId = cityId;
-            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
-            ViewBag.StreetId = itemId;
-            if (itemId == null)
+        public async Task<IActionResult> Delete(int cityId, int? streetId)
+        { 
+            if (streetId == null)
             {
                 return NotFound();
             }
 
+            ViewBag.CityId = cityId;
+            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
+            ViewBag.StreetId = streetId;
+
             var street = await _context.Streets
                 .Include(s => s.City)
-                .FirstOrDefaultAsync(m => m.Id == itemId);
+                .FirstOrDefaultAsync(m => m.Id == streetId);
             if (street == null)
             {
                 return NotFound();
@@ -165,9 +170,9 @@ namespace PoliceWebApplication.Controllers
         // POST: Streets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int cityId, int Id)
+        public async Task<IActionResult> DeleteConfirmed(int cityId, int id)
         {
-            var street = await _context.Streets.FindAsync(Id);
+            var street = await _context.Streets.FindAsync(id);
             _context.Streets.Remove(street);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });

@@ -179,4 +179,8 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\St
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Streets\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Streets\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Streets\Index.cshtml.g.cs
-C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.csprojAssemblyReference.cache
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Delete.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Details.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Index.cshtml.g.cs

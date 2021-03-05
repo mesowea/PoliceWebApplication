@@ -29,9 +29,14 @@ namespace PoliceWebApplication.Controllers
             return View(await departmentByStreet.ToListAsync());
         }
         //  GET: Departments/Return
-        public IActionResult Return()
+        public IActionResult Return(int streetId)
         {
-            return RedirectToAction("Index", "Streets");
+            int cityId = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().CityId;
+            return RedirectToAction("Index", "Streets", new
+            {
+                id = cityId,
+                name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name
+            }) ;
         }
 
         // GET: Departments/Details/5
@@ -50,17 +55,16 @@ namespace PoliceWebApplication.Controllers
                 return NotFound();
             }
 
-            return View(department);
+            return RedirectToAction("Index", "Investigators", new { id = department.Id, house = department.House });
+            //return View(department);
         }
 
         // GET: Departments/Create
-        public IActionResult Go()
+        public IActionResult Create(int streetId)
         {
-            return RedirectToAction("Index", "Streets");
-        }
-        public IActionResult Create(int? id)
-        {
-            ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", id);
+            //ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", id);
+            ViewBag.StreetId = streetId;
+            ViewBag.StreetName = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name;
             return View();
         }
 
@@ -71,30 +75,35 @@ namespace PoliceWebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StreetId,House")] Department department)
         {
+            int streetId = department.StreetId;
             if (ModelState.IsValid)
             {
                 _context.Add(department);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name });
             }
-            ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
-            return RedirectToAction("Index", "Streets");
+            //ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
+            //return RedirectToAction("Index", "Streets");
+            return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name });
         }
 
         // GET: Departments/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int streetId, int? deptId)
         {
-            if (id == null)
+            if (deptId == null)
             {
                 return NotFound();
             }
 
-            var department = await _context.Departments.FindAsync(id);
+            var department = await _context.Departments.FindAsync(deptId);
             if (department == null)
             {
                 return NotFound();
             }
-            ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
+            ViewBag.StreetId = streetId;
+            ViewBag.StreetName = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name;
+            //ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
             return View(department);
         }
 
@@ -103,13 +112,14 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StreetId,House")] Department department)
+        public async Task<IActionResult> Edit(int streetId, [Bind("Id,StreetId,House")] Department department)
         {
-            if (id != department.Id)
+            //department.StreetId = streetId;
+            /*if (deptId != department.Id)
             {
                 return NotFound();
             }
-
+            */
             if (ModelState.IsValid)
             {
                 try
@@ -128,23 +138,29 @@ namespace PoliceWebApplication.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name });
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
-            return View(department);
+            return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name });
+            //ViewData["StreetId"] = new SelectList(_context.Streets, "Id", "Name", department.StreetId);
+            //return View(department);
         }
 
         // GET: Departments/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int streetId, int? deptId)
         {
-            if (id == null)
+            
+            if (deptId == null)
             {
                 return NotFound();
             }
+            ViewBag.StreetId = streetId;
+            ViewBag.StreetName = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name;
+            ViewBag.DepartmentId = deptId;
 
             var department = await _context.Departments
                 .Include(d => d.Street)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == deptId);
             if (department == null)
             {
                 return NotFound();
@@ -156,12 +172,12 @@ namespace PoliceWebApplication.Controllers
         // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int streetId, int id)
         {
             var department = await _context.Departments.FindAsync(id);
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name});
         }
 
         private bool DepartmentExists(int id)
