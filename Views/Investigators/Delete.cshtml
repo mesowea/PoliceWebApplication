@@ -1,0 +1,38 @@
+﻿@model PoliceWebApplication.Investigator
+
+@{
+    ViewData["Title"] = "Видалити слідчого з відділку";
+}
+
+<h1>Видалити слідчого з відділку за адресою @ViewBag.DeptStreet, @ViewBag.DeptHouse</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Characteristic)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Characteristic)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" value="@ViewBag.DeptId" name="deptId" />
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        @Html.ActionLink("Назад", "Index", new { id = ViewBag.DeptId, house = ViewBag.DeptHouse})
+    </form>
+</div>
