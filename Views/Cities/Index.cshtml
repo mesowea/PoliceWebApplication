@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<PoliceWebApplication.City>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Міста";
 }
 
-<h1>Index</h1>
+<h1>База даних Поліції</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Додати нове місто</a>
 </p>
 
 <table class="table">
@@ -26,9 +26,9 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Вулиці</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
             </td>
         </tr>
 }

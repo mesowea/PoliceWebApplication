@@ -25,7 +25,7 @@ namespace PoliceWebApplication.Controllers
 
             ViewBag.CityId = id;
             ViewBag.CityName = name;
-            var streetsOfTheCity = _context.Streets.Where(b=>b.CityId == id).Include(b => b.City);
+            var streetsOfTheCity = _context.Streets.Where(b => b.CityId == id).Include(b => b.City);
             return View(await streetsOfTheCity.ToListAsync());
         }
         // GET: Streets/Return
@@ -83,19 +83,21 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: Streets/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int cityId, int? itemId)
         {
-            if (id == null)
+            if (itemId == null)
             {
                 return NotFound();
             }
 
-            var street = await _context.Streets.FindAsync(id);
+            var street = await _context.Streets.FindAsync(itemId);
             if (street == null)
             {
                 return NotFound();
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
+            ViewBag.CityId = cityId;
+            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
+            //ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
             return View(street);
         }
 
@@ -104,8 +106,9 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,CityId")] Street street)
+        public async Task<IActionResult> Edit(int cityId, int id, [Bind("Id,Name,CityId")] Street street)
         {
+            street.CityId = cityId;
             if (id != street.Id)
             {
                 return NotFound();
@@ -129,23 +132,28 @@ namespace PoliceWebApplication.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });
+                //return RedirectToAction(nameof(Index));
             }
-            ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
-            return View(street);
+            //ViewData["CityId"] = new SelectList(_context.Cities, "Id", "Name", street.CityId);
+            return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });
+            //return View(street);
         }
 
         // GET: Streets/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int cityId, int itemId)
         {
-            if (id == null)
+            ViewBag.CityId = cityId;
+            ViewBag.CityName = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name;
+            ViewBag.StreetId = itemId;
+            if (itemId == null)
             {
                 return NotFound();
             }
 
             var street = await _context.Streets
                 .Include(s => s.City)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == itemId);
             if (street == null)
             {
                 return NotFound();
@@ -157,12 +165,12 @@ namespace PoliceWebApplication.Controllers
         // POST: Streets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int cityId, int Id)
         {
-            var street = await _context.Streets.FindAsync(id);
+            var street = await _context.Streets.FindAsync(Id);
             _context.Streets.Remove(street);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });
         }
 
         private bool StreetExists(int id)

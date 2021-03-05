@@ -68,6 +68,8 @@ namespace PoliceWebApplication.Controllers
         // GET: Cities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.CityId = id;
+            ViewBag.CityName = _context.Cities.Where(c => c.Id == id).FirstOrDefault().Name;
             if (id == null)
             {
                 return NotFound();

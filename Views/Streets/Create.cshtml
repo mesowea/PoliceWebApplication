@@ -32,7 +32,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Назад</a>
+   @Html.ActionLink("Назад", "Index", new {id = @ViewBag.CityId, name = @ViewBag.CityName})
 </div>
 
 @section Scripts {
