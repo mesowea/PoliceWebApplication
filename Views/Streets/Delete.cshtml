@@ -1,7 +1,7 @@
 ﻿@model PoliceWebApplication.Street
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Видалити вулицю у місті";
 }
 
 <h1>Видалити вулицю міста @ViewBag.CityName</h1>
@@ -24,9 +24,10 @@
         </dd class>
         *@
     </dl>
+
     <form asp-action="Delete">
-        <input type="hidden" value="@ViewBag.CityId" name="CityId" />
-        <input type="hidden" value="@ViewBag.StreetId" name="Id" />
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" value="@ViewBag.CityId" name="cityId" />
         <input type="submit" value="Видалити" class="btn btn-danger" /> |
         @Html.ActionLink("Назад", "Index", new { id = ViewBag.CityId, name = ViewBag.CityName })
     </form>
