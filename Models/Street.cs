@@ -13,7 +13,7 @@ namespace PoliceWebApplication
         }
 
         public int Id { get; set; }
-        [Display(Name = "Вулиця")]
+        [Display(Name = "Назва вулиці")]
         [Required(ErrorMessage = "Введіть, будь ласка, назву вулиці")]
         public string Name { get; set; }
         [Display(Name ="Місто")]
