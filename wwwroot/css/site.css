@@ -5,15 +5,19 @@ a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+
 }
 
 /* Provide sufficient contrast against white background */
-a {
+a{
     color: #004ca3;
 }
 
+h1 {
+    color: #0E2D69;
+}
 .btn-primary {
-    color: #ffff00;
+    color: #ffffff;
     background-color: #004ca3;
     border-color: #1861ac;
 }
@@ -27,16 +31,15 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 @media (min-width: 768px) {
   html {
     font-size: 16px;
   }
 }
-
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
@@ -59,8 +62,9 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+ 
 }
 .footer {
   position: absolute;
