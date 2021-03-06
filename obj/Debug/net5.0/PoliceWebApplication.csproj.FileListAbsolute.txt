@@ -189,3 +189,4 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Ca
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Index.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.csprojAssemblyReference.cache
