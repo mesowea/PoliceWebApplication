@@ -4,7 +4,7 @@
     ViewData["Title"] = "Справи слідчого";
 }
 
-<h1>Справи слідчого @ViewBag.InvestigatorName</h1>
+<h1><img src="~/css/police.png" width="100" height="100"> Справи слідчого @ViewBag.InvestigatorName</h1>
 
 <p>
     @Html.ActionLink("Додати нову справу", "Create", new { investigatorId = ViewBag.InvestigatorId })

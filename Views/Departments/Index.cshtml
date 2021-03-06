@@ -4,7 +4,7 @@
     ViewData["Title"] = "Відділки за вулицею";
 }
 
-<h1>Відділки на вулиці  @ViewBag.StreetName </h1>
+<h1><img src="~/css/police.png" width="100" height="100"> Відділки на вулиці  @ViewBag.StreetName </h1>
 
 <p>
     @Html.ActionLink("Додати новий відділок", "Create", new { streetId = @ViewBag.StreetId})
