@@ -43,7 +43,7 @@
             </td>
             <td>
                 @Html.ActionLink("Змінити", "Edit", new { deptId = ViewBag.DeptId, investigatorId = item.Id }) |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Справи</a> |
                 @Html.ActionLink("Видалити", "Delete", new { deptId = @ViewBag.DeptId, investigatorId = item.Id })
             </td>
         </tr>

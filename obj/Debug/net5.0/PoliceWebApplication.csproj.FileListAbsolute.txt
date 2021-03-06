@@ -184,3 +184,8 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\In
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Investigators\Index.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Delete.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Details.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Index.cshtml.g.cs

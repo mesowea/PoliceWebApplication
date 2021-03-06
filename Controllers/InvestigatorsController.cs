@@ -52,7 +52,8 @@ namespace PoliceWebApplication.Controllers
                 return NotFound();
             }
 
-            return View(investigator);
+            return RedirectToAction("Index", "Cases", new { id = investigator.Id, name = investigator.Name });
+            //return View(investigator);
         }
 
         // GET: Investigators/Create
@@ -112,11 +113,6 @@ namespace PoliceWebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int deptId, [Bind("Id,DepartmentId,Name,DateOfBirth,Characteristic")] Investigator investigator)
         {
-            /*if (deptId != investigator.Id)
-            {
-                return NotFound();
-            }*/
-
             if (ModelState.IsValid)
             {
                 try
@@ -148,11 +144,6 @@ namespace PoliceWebApplication.Controllers
                 return NotFound();
             }
 
-            ViewBag.DeptId = deptId;
-            ViewBag.DeptHouse = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().House;
-            int streetId = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().StreetId;
-            ViewBag.DeptStreet = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name;
-
             var investigator = await _context.Investigators
                 .Include(i => i.Department)
                 .FirstOrDefaultAsync(m => m.Id == investigatorId);
@@ -160,6 +151,11 @@ namespace PoliceWebApplication.Controllers
             {
                 return NotFound();
             }
+
+            ViewBag.DeptId = deptId;
+            ViewBag.DeptHouse = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().House;
+            int streetId = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().StreetId;
+            ViewBag.DeptStreet = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name;
 
             return View(investigator);
         }

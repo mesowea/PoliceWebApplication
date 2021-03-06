@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PoliceWebApplication.Case>
+
+@{
+    ViewData["Title"] = "Справи слідчого";
+}
+
+<h1>Справи слідчого @ViewBag.InvestigatorName</h1>
+
+<p>
+    @Html.ActionLink("Додати нову справу", "Create", new { investigatorId = ViewBag.InvestigatorId })
+</p>
+
+<p>
+    @Html.ActionLink("Назад", "Return", new { investigatorId = ViewBag.InvestigatorId })
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateStarted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFinished)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateStarted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateFinished)
+            </td>
+            <td>
+                @Html.ActionLink("Змінити", "Edit", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @Html.ActionLink("Видалити", "Delete", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
