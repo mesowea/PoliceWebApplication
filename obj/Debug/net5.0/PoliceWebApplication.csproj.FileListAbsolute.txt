@@ -200,3 +200,13 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Ca
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CaseArticles\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CaseArticles\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CaseArticles\Index.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\People\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\People\Delete.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\People\Details.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\People\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\People\Index.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Delete.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Details.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Index.cshtml.g.cs
