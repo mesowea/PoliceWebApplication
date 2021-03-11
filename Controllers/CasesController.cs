@@ -33,22 +33,32 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "Investigators", new { id = deptId, house = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().House});
         }
         // GET: Cases/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? investigatorId, int? caseId)
         {
-            if (id == null)
+            if (investigatorId == null || caseId == null)
             {
                 return NotFound();
             }
-
+            ViewBag.InvestigatorId = investigatorId;
+            ViewBag.InvestigatorName = _context.Investigators.Where(i => i.Id == investigatorId).FirstOrDefault().Name;
+            ViewBag.CaseId = caseId;
             var @case = await _context.Cases
                 .Include(c => c.Investigator)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == caseId);
             if (@case == null)
             {
                 return NotFound();
             }
-
             return View(@case);
+        }
+
+        public IActionResult Articles(int? investigatorId, int? caseId)
+        {
+            if (investigatorId == null || caseId == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index", "CaseArticles", new { id = investigatorId, caseId = caseId });
         }
 
         // GET: Cases/Create
@@ -93,7 +103,7 @@ namespace PoliceWebApplication.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.CaseId = caseId;
             ViewBag.InvestigatorId = investigatorId;
             ViewBag.InvestigatorName = _context.Investigators.Where(i => i.Id == investigatorId).FirstOrDefault().Name;
 
@@ -147,7 +157,7 @@ namespace PoliceWebApplication.Controllers
             {
                 return NotFound();
             }
-
+            ViewBag.CaseId = caseId;
             ViewBag.InvestigatorId = investigatorId;
             ViewBag.InvestigatorName = _context.Investigators.Where(i => i.Id == investigatorId).FirstOrDefault().Name;
 

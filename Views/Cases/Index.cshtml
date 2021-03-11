@@ -18,13 +18,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Info)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateStarted)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DateFinished)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th></th>
         </tr>
@@ -33,17 +27,11 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Info)
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DateStarted)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateFinished)
-            </td>
-            <td>
-                @Html.ActionLink("Змінити", "Edit", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @Html.ActionLink("Загальна інформація по справі", "Details", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
+                @Html.ActionLink("Статті", "Articles", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 @Html.ActionLink("Видалити", "Delete", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })
             </td>

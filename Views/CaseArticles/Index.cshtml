@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PoliceWebApplication.CaseArticle>
+
+@{
+    ViewData["Title"] = "Cтатті по справі";
+}
+
+<h1><img src="~/css/police.png" width="100" height="100"> Статті по справі № @ViewBag.CaseId</h1>
+
+<p>
+    @Html.ActionLink("Додати нову статтю", "Create", new { caseId = @ViewBag.CaseId })
+</p>
+
+<p>
+    @Html.ActionLink("Назад", "Return", new { investigatorId = ViewBag.InvestigatorId })
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Article.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Article)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Article.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Article.Info)
+            </td>
+            <td>
+                @Html.ActionLink("Видалити", "Delete", new { id = item.Id})
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

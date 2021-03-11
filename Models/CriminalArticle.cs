@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,6 +14,7 @@ namespace PoliceWebApplication
         }
 
         public int Id { get; set; }
+        [Display(Name = "№")]
         public string Name { get; set; }
         public string Info { get; set; }
 

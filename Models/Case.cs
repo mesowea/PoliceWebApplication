@@ -13,7 +13,7 @@ namespace PoliceWebApplication
             CasesArticles = new HashSet<CaseArticle>();
             CasesPeople = new HashSet<CasePerson>();
         }
-
+        [Display(Name = "№ справи")]
         public int Id { get; set; }
         public int InvestigatorId { get; set; }
         [Display(Name = "Інформація по справі")]
