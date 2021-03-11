@@ -19,10 +19,12 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: People
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? caseId)
         {
-            var dBPoliceContext = _context.People.Include(p => p.Type);
-            return View(await dBPoliceContext.ToListAsync());
+            return RedirectToAction("Create", "CasePersons", new { caseId = caseId });
+            if (caseId == null) RedirectToAction("Index", "Cases");
+            var casesToPeople = _context.People.Include(p => p.Type);
+            return View(await casesToPeople.ToListAsync());
         }
 
         // GET: People/Details/5
@@ -45,8 +47,9 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: People/Create
-        public IActionResult Create()
+        public IActionResult Create(int caseId)
         {
+            ViewBag.CaseId = caseId;
             ViewData["TypeId"] = new SelectList(_context.Types, "Id", "Name");
             return View();
         }
@@ -56,16 +59,15 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,DateOfBirth,TypeId")] Person person)
+        public async Task<IActionResult> Create(int caseId, [Bind("Id,Name,DateOfBirth,TypeId")] Person person)
         {
             if (ModelState.IsValid)
             {
                 _context.Add(person);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Create", "CasePersons", new { caseId = caseId });
             }
-            ViewData["TypeId"] = new SelectList(_context.Types, "Id", "Name", person.TypeId);
-            return View(person);
+            return RedirectToAction("Create", "CasePersons", new { caseId = caseId });
         }
 
         // GET: People/Edit/5

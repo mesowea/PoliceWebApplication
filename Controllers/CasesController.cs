@@ -51,9 +51,9 @@ namespace PoliceWebApplication.Controllers
             }
             return View(@case);
         }
-        public IActionResult People()
+        public IActionResult People(int investigatorId, int caseId)
         {
-            return RedirectToAction("Index", "People");
+            return RedirectToAction("Index", "CasePersons", new { investigatorId = investigatorId, caseId = caseId });
         }
         public IActionResult Articles(int? investigatorId, int? caseId)
         {

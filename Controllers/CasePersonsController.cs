@@ -19,37 +19,36 @@ namespace PoliceWebApplication.Controllers
         }
 
         // GET: CasePersons
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? investigatorId, int? caseId)
         {
-            var dBPoliceContext = _context.CasesPeople.Include(c => c.Case).Include(c => c.Person);
-            return View(await dBPoliceContext.ToListAsync());
+            if (investigatorId == null || caseId == null) return RedirectToAction("Index", "Cases");
+            ViewBag.CaseId = caseId;
+            //for return
+            ViewBag.InvestigatorId = investigatorId;
+            ViewBag.InvestigatorName = _context.Investigators.Where(i => i.Id == investigatorId).FirstOrDefault().Name;
+            var casesToPeople = _context.CasesPeople.Where(c => c.CaseId == caseId).Include(c => c.Case).Include(c => c.Person).Include(c => c.Person.Type);
+            return View(await casesToPeople.ToListAsync());
         }
-
+        public IActionResult Return(int investigatorId, string investigatorName)
+        {
+            return RedirectToAction("Index", "Cases", new { id = investigatorId, name = investigatorName });
+        }
+        public IActionResult NewPerson(int caseId)
+        {
+            return RedirectToAction("Create", "People", new { caseId = caseId});
+        }
         // GET: CasePersons/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var casePerson = await _context.CasesPeople
-                .Include(c => c.Case)
-                .Include(c => c.Person)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (casePerson == null)
-            {
-                return NotFound();
-            }
-
-            return View(casePerson);
+            return NotFound();
         }
 
         // GET: CasePersons/Create
-        public IActionResult Create()
+        public IActionResult Create(int caseId)
         {
-            ViewData["CaseId"] = new SelectList(_context.Cases, "Id", "Info");
-            ViewData["PersonId"] = new SelectList(_context.People, "Id", "Name");
+            ViewBag.CaseId = caseId;
+            ViewBag.InvestigatorId = _context.Cases.Where(c => c.Id == caseId).FirstOrDefault().InvestigatorId;
+            ViewData["PersonId"] = new SelectList(_context.People, "Id", "Id");
             return View();
         }
 
@@ -60,33 +59,21 @@ namespace PoliceWebApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,CaseId,PersonId")] CasePerson casePerson)
         {
+            int caseId = casePerson.CaseId;
+            int investigatorId = _context.Cases.Where(c => c.Id == caseId).FirstOrDefault().InvestigatorId;
             if (ModelState.IsValid)
             {
                 _context.Add(casePerson);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "CasePersons", new { investigatorId = investigatorId, caseId = caseId});
             }
-            ViewData["CaseId"] = new SelectList(_context.Cases, "Id", "Info", casePerson.CaseId);
-            ViewData["PersonId"] = new SelectList(_context.People, "Id", "Name", casePerson.PersonId);
-            return View(casePerson);
+            return RedirectToAction("Index", "CasePersons", new { investigatorId = investigatorId, caseId = caseId });
         }
 
         // GET: CasePersons/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var casePerson = await _context.CasesPeople.FindAsync(id);
-            if (casePerson == null)
-            {
-                return NotFound();
-            }
-            ViewData["CaseId"] = new SelectList(_context.Cases, "Id", "Info", casePerson.CaseId);
-            ViewData["PersonId"] = new SelectList(_context.People, "Id", "Name", casePerson.PersonId);
-            return View(casePerson);
+            return NotFound();
         }
 
         // POST: CasePersons/Edit/5
@@ -137,12 +124,15 @@ namespace PoliceWebApplication.Controllers
             var casePerson = await _context.CasesPeople
                 .Include(c => c.Case)
                 .Include(c => c.Person)
+                .Include(c => c.Person.Type)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (casePerson == null)
             {
                 return NotFound();
             }
-
+            int caseId = _context.CasesPeople.Where(c => c.Id == id).FirstOrDefault().CaseId;
+            ViewBag.CaseId = caseId;
+            ViewBag.InvestigatorId = _context.Cases.Where(c => c.Id == caseId).FirstOrDefault().InvestigatorId;
             return View(casePerson);
         }
 
@@ -154,7 +144,9 @@ namespace PoliceWebApplication.Controllers
             var casePerson = await _context.CasesPeople.FindAsync(id);
             _context.CasesPeople.Remove(casePerson);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            int caseId = casePerson.CaseId;
+            int investigatorId = _context.Cases.Where(c => c.Id == caseId).FirstOrDefault().InvestigatorId;
+            return RedirectToAction("Index", "CasePersons", new { investigatorId = investigatorId, caseId = caseId });
         }
 
         private bool CasePersonExists(int id)

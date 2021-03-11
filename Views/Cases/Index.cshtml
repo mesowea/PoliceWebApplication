@@ -32,7 +32,7 @@
             <td>
                 @Html.ActionLink("Загальна інформація по справі", "Details", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
                 @Html.ActionLink("Статті", "Articles", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
-                @Html.ActionLink("Суб`єкти", "People")  |
+                @Html.ActionLink("Суб`єкти", "People", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })  |
                 @Html.ActionLink("Видалити", "Delete", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })
             </td>
         </tr>
