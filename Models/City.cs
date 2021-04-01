@@ -15,6 +15,8 @@ namespace PoliceWebApplication
         public int Id { get; set; }
         [Display(Name = "Назва міста")]
         [Required(ErrorMessage = "Введіть, будь ласка, назву міста")]
+        [RegularExpression(@"^[Є-ЯҐ,а-їґ,`,',']{2,40}$",
+         ErrorMessage = "Введіть, будь ласка, назву міста")]
         public string Name { get; set; }
         public virtual ICollection<Street> Streets { get; set; }
     }

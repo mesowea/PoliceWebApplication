@@ -17,6 +17,7 @@ namespace PoliceWebApplication
         public int StreetId { get; set; }
         [Display(Name ="Будинок")]
         [Required(ErrorMessage = "Введіть, будь ласка, номер будинку")]
+        [Range(1, Int32.MaxValue, ErrorMessage = "Введіть, будь ласка, номер будинку")]
         public int House { get; set; }
         [Display(Name = "Вулиця")]
         public virtual Street Street { get; set; }

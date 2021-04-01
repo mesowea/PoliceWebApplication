@@ -189,7 +189,6 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Ca
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Cases\Index.cshtml.g.cs
-C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.csprojAssemblyReference.cache
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CriminalArticles\Create.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CriminalArticles\Delete.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CriminalArticles\Details.cshtml.g.cs
@@ -210,3 +209,4 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\Ca
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\Razor\Views\CasePersons\Index.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Debug\net5.0\PoliceWebApplication.csprojAssemblyReference.cache

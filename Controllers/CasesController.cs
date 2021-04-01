@@ -32,6 +32,27 @@ namespace PoliceWebApplication.Controllers
             int deptId = _context.Investigators.Where(i => i.Id == investigatorId).FirstOrDefault().DepartmentId;
             return RedirectToAction("Index", "Investigators", new { id = deptId, house = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().House});
         }
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult VerifyDateStarted(DateTime DateStarted)
+        {
+            if (DateTime.Now < DateStarted)
+            {
+
+                return Json($"Введіть коректну дату відкриття справи");
+            }
+
+            return Json(true);
+        }
+        public IActionResult VerifyDateFinished(DateTime DateFinished, DateTime DateStarted)
+        {
+            if (DateFinished < DateStarted || DateFinished > DateTime.Now)
+            {
+
+                return Json($"Введіть коректну дату відкриття справи");
+            }
+
+            return Json(true);
+        }
         // GET: Cases/Details/5
         public async Task<IActionResult> Details(int? investigatorId, int? caseId)
         {

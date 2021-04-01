@@ -26,7 +26,16 @@ namespace PoliceWebApplication.Controllers
             var casesToPeople = _context.People.Include(p => p.Type);
             return View(await casesToPeople.ToListAsync());
         }
+        public IActionResult VerifyDOB(DateTime DateOfBirth)
+        {
+            if (DateTime.Now < DateOfBirth || DateTime.Today.AddYears(-100) > DateOfBirth)
+            {
 
+                return Json($"Введіть коректну дату народження");
+            }
+
+            return Json(true);
+        }
         // GET: People/Details/5
         public async Task<IActionResult> Details(int? id)
         {

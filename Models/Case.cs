@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
 
 #nullable disable
 
@@ -21,8 +22,10 @@ namespace PoliceWebApplication
         public string Info { get; set; }
         [Display(Name = "Дата відкриття справи")]
         [Required(ErrorMessage = "Введіть, будь ласка, дату відкриття справи")]
+        [Remote(action: "VerifyDateStarted", controller: "Cases")]
         public DateTime DateStarted { get; set; }
         [Display(Name = "Дата закриття справи")]
+        [Remote(action: "VerifyDateFinished", controller: "Cases", AdditionalFields = nameof(DateStarted))]
         public DateTime? DateFinished { get; set; }
 
         public virtual Investigator Investigator { get; set; }

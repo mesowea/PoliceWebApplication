@@ -36,6 +36,17 @@ namespace PoliceWebApplication.Controllers
             int streetId = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().StreetId;
             return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name });
         }
+        [AcceptVerbs("GET", "POST")]
+        public IActionResult VerifyDOB(DateTime DateOfBirth)
+        {
+            if ( DateTime.Today.AddYears(-18) <  DateOfBirth || DateTime.Today.AddYears(-100) > DateOfBirth)
+            {
+                
+                return Json($"Введіть коректну дату народження");
+            }
+
+            return Json(true);
+        }
         // GET: Investigators/Details/5
         public async Task<IActionResult> Details(int? id)
         {
