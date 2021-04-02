@@ -42,6 +42,16 @@ namespace PoliceWebApplication.Controllers
             //return View(city);
             return RedirectToAction("Index", "Streets", new { id = city.Id, name = city.Name });
         }
+        public IActionResult VerifyName(string Name)
+        {
+            if (_context.Cities.Where(c => c.Name == Name).Count() != 0)
+            {
+
+                return Json($"Місто вже існує");
+            }
+
+            return Json(true);
+        }
 
         // GET: Cities/Create
         public IActionResult Create()
