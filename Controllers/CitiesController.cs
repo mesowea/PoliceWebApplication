@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoliceWebApplication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PoliceWebApplication.Controllers
 {
+   
     public class CitiesController : Controller
     {
         private readonly DBPoliceContext _context;
@@ -18,12 +20,14 @@ namespace PoliceWebApplication.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: Cities
         public async Task<IActionResult> Index()
         {
             return View(await _context.Cities.ToListAsync());
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: Cities/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -53,6 +57,8 @@ namespace PoliceWebApplication.Controllers
             return Json(true);
         }
 
+
+        [Authorize(Roles = "admin")]
         // GET: Cities/Create
         public IActionResult Create()
         {
@@ -64,6 +70,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,Name")] City city)
         {
             if (ModelState.IsValid)
@@ -75,6 +82,7 @@ namespace PoliceWebApplication.Controllers
             return View(city);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Cities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -98,6 +106,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] City city)
         {
             if (id != city.Id)
@@ -128,6 +137,8 @@ namespace PoliceWebApplication.Controllers
             return View(city);
         }
 
+
+        [Authorize(Roles = "admin")]
         // GET: Cities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -146,6 +157,8 @@ namespace PoliceWebApplication.Controllers
             return View(city);
         }
 
+
+        [Authorize(Roles = "admin")]
         // POST: Cities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

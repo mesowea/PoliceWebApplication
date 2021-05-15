@@ -6,10 +6,32 @@
 
 <h1><img src="~/css/police.png" width="100" height="100"> Слідчі відділку за адресою @ViewBag.DeptStreet, @ViewBag.DeptHouse</h1>
 
-<p>
-    @Html.ActionLink("Додати нового слідчого", "Create", new { deptId = @ViewBag.DeptId })
-</p>
+@if (User.IsInRole("admin"))
+{
+    <a><font color="red">Адміністратор</font></a>
+}
+else if (User.IsInRole("user"))
+{
+    <a><font color="blue">Користувач</font></a>
+}
+<p>@User.Identity.Name</p>
 
+<form method="post" asp-controller="Account" asp-action="Logout">
+    <input type="submit" value="Вихід" />
+</form>
+
+@if (User.IsInRole("admin"))
+{
+    <div align="right">
+        <p><a class="btn btn-sm btn-outline-primary" asp-controller="Roles" asp-action="UserList">Керування користувачами</a></p>
+    </div>
+}
+@if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Додати нового слідчого", "Create", new { deptId = @ViewBag.DeptId })
+    </p>
+}
 <p>
     @Html.ActionLink("Назад", "Return", new { deptid = ViewBag.DeptId })
 </p>
@@ -43,9 +65,13 @@
                     @Html.DisplayFor(modelItem => item.Characteristic)
                 </td>
                 <td>
-                    @Html.ActionLink("Змінити", "Edit", new { deptId = ViewBag.DeptId, investigatorId = item.Id }) |
-                    <a asp-action="Details" asp-route-id="@item.Id">Справи</a> |
-                    @Html.ActionLink("Видалити", "Delete", new { deptId = @ViewBag.DeptId, investigatorId = item.Id })
+                    @if (User.IsInRole("admin"))
+                    {@Html.ActionLink("Змінити |", "Edit", new { deptId = ViewBag.DeptId, investigatorId = item.Id })}
+
+                    <a asp-action="Details" asp-route-id="@item.Id">Справи</a>
+
+                    @if (User.IsInRole("admin"))
+                    {@Html.ActionLink("| Видалити", "Delete", new { deptId = @ViewBag.DeptId, investigatorId = item.Id })}
                 </td>
             </tr>
         }

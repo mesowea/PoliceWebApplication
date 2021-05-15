@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoliceWebApplication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PoliceWebApplication.Controllers
 {
@@ -18,6 +19,7 @@ namespace PoliceWebApplication.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: Cases
         public async Task<IActionResult> Index(int? id, string? name)
         {
@@ -53,6 +55,8 @@ namespace PoliceWebApplication.Controllers
 
             return Json(true);
         }
+
+        [Authorize(Roles = "admin, user")]
         // GET: Cases/Details/5
         public async Task<IActionResult> Details(int? investigatorId, int? caseId)
         {
@@ -72,10 +76,14 @@ namespace PoliceWebApplication.Controllers
             }
             return View(@case);
         }
+
+        [Authorize(Roles = "admin, user")]
         public IActionResult People(int investigatorId, int caseId)
         {
             return RedirectToAction("Index", "CasePersons", new { investigatorId = investigatorId, caseId = caseId });
         }
+
+        [Authorize(Roles = "admin, user")]
         public IActionResult Articles(int? investigatorId, int? caseId)
         {
             if (investigatorId == null || caseId == null)
@@ -85,6 +93,7 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "CaseArticles", new { id = investigatorId, caseId = caseId });
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Cases/Create
         public IActionResult Create(int investigatorId)
         {
@@ -99,6 +108,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,InvestigatorId,Info,DateStarted,DateFinished")] Case @case)
         {
             int investigatorId = @case.InvestigatorId;
@@ -114,6 +124,7 @@ namespace PoliceWebApplication.Controllers
             //return View(@case);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Cases/Edit/5
         public async Task<IActionResult> Edit(int? investigatorId, int? caseId)
         {
@@ -139,6 +150,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int investigatorId, [Bind("Id,InvestigatorId,Info,DateStarted,DateFinished")] Case @case)
         {
             if (ModelState.IsValid)
@@ -166,6 +178,7 @@ namespace PoliceWebApplication.Controllers
             //return View(@case);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Cases/Delete/5
         public async Task<IActionResult> Delete(int? investigatorId, int? caseId)
         {
@@ -191,6 +204,7 @@ namespace PoliceWebApplication.Controllers
         // POST: Cases/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int investigatorId, int id)
         {
             var @case = await _context.Cases.FindAsync(id);

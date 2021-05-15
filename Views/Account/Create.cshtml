@@ -1,0 +1,22 @@
+﻿@model PoliceWebApplication.Models.ViewModels.CreateAccViewModel
+
+<h1><img src="~/css/police.png" width="100" height="100"> Реєстація нового користувача </h1>
+<form asp-action="Create" asp-controller="Account">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Email" class="control-label">Email</label>
+        <input type="text" asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label">Пароль</label>
+        <input type="text" asp-for="Password" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Code" class="control-label">Код</label>
+        <input type="text" asp-for="Code" class="form-control" />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Додати" class="btn btn-outline-danger" />
+        @Html.ActionLink("Назад", "Userlist", "Roles")
+    </div>
+</form>

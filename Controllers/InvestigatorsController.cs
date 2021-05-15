@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoliceWebApplication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PoliceWebApplication.Controllers
 {
@@ -18,6 +19,7 @@ namespace PoliceWebApplication.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: Investigators
         public async Task<IActionResult> Index(int? id, int? house)
         {
@@ -48,6 +50,7 @@ namespace PoliceWebApplication.Controllers
             return Json(true);
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: Investigators/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -68,6 +71,7 @@ namespace PoliceWebApplication.Controllers
             //return View(investigator);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Investigators/Create
         public IActionResult Create(int deptId)
         {
@@ -84,6 +88,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,DepartmentId,Name,DateOfBirth,Characteristic")] Investigator investigator)
         {
             int deptId = investigator.DepartmentId;
@@ -99,6 +104,7 @@ namespace PoliceWebApplication.Controllers
             //return View(investigator);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Investigators/Edit/5
         public async Task<IActionResult> Edit(int deptId, int? investigatorId)
         {
@@ -123,6 +129,7 @@ namespace PoliceWebApplication.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int deptId, [Bind("Id,DepartmentId,Name,DateOfBirth,Characteristic")] Investigator investigator)
         {
             if (ModelState.IsValid)
@@ -148,6 +155,7 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "Investigators", new { id = deptId, house = _context.Departments.Where(d => d.Id == deptId).FirstOrDefault().House });
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Investigators/Delete/5
         public async Task<IActionResult> Delete(int deptId, int? investigatorId)
         {
@@ -175,6 +183,7 @@ namespace PoliceWebApplication.Controllers
         // POST: Investigators/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int deptId, int id)
         {
             var investigator = await _context.Investigators.FindAsync(id);

@@ -5,13 +5,34 @@
 }
 
 <h1><img src="~/css/police.png" width="100" height="100"> База даних Національної поліції України </h1>
-<!-- Minfin.com.ua currency informer 350x120 blue-->
-<div id="minfin-informer-m1Fn-currency">Загружаем <a href="https://minfin.com.ua/currency/" target="_blank">курсы валют</a> от minfin.com.ua</a></div>
-<script>var iframe = '<ifra' + 'me width="350" height="120" fram' + 'eborder="0" src="https://informer.minfin.com.ua/gen/course/?color=blue" vspace="0" scrolling="no" hspace="0" allowtransparency="true"style="width:350px;height:120px;ove' + 'rflow:hidden;"></iframe>'; var cl = 'minfin-informer-m1Fn-currency'; document.getElementById(cl).innerHTML = iframe;</script><noscript><img src="https://informer.minfin.com.ua/gen/img.png" width="1" height="1" alt="minfin.com.ua: курсы валют" title="Курс валют" border="0" /></noscript>
-<!-- Minfin.com.ua currency informer 350x120 blue-->
+
+
+@if (User.IsInRole("admin"))
+{
+    <a><font color="red">Адміністратор</font></a>
+}
+else if (User.IsInRole("user"))
+{
+    <a><font color="blue">Користувач</font></a>
+}
+<p>@User.Identity.Name</p>
+<form method="post" asp-controller="Account" asp-action="Logout">
+    <input type="submit" value="Вихід" />
+</form>
+
+@if (User.IsInRole("admin"))
+{
+    <div align="right">
+        <p><a class="btn btn-sm btn-outline-primary" asp-controller="Roles" asp-action="UserList">Керування користувачами</a></p>
+    </div>
+}
+
+@if (User.IsInRole("admin"))
+{
 <p>
     <a asp-action="Create">Додати нове місто</a>
 </p>
+}
 
 <table class="table">
     <thead>
@@ -30,9 +51,11 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Змінити</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Вулиці</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                    @if (User.IsInRole("admin"))
+                    {<a asp-action="Edit" asp-route-id="@item.Id">Змінити |</a>}
+                    <a asp-action="Details" asp-route-id="@item.Id">Вулиці</a>
+                    @if (User.IsInRole("admin"))
+                    {<a asp-action="Delete" asp-route-id="@item.Id">| Видалити</a>}
                 </td>
             </tr>
         }

@@ -165,8 +165,6 @@ C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Departments\Details.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Departments\Edit.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Departments\Index.cshtml.g.cs
-C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Investigators\Create.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Investigators\Delete.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Investigators\Details.cshtml.g.cs
@@ -221,3 +219,7 @@ C:\Users\drago\source\repos\PoliceWebApplication\bin\Release\net5.0\Microsoft.Ex
 C:\Users\drago\source\repos\PoliceWebApplication\bin\Release\net5.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Roles\Edit.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Roles\UserList.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Account\Create.cshtml.g.cs
+C:\Users\drago\source\repos\PoliceWebApplication\obj\Release\net5.0\Razor\Views\Account\Edit.cshtml.g.cs

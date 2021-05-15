@@ -10,6 +10,7 @@ using PoliceWebApplication;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PoliceWebApplication.Controllers
 {
@@ -22,6 +23,7 @@ namespace PoliceWebApplication.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: Departments
         public async Task<IActionResult> Index(int? id, string? name)
         {
@@ -42,6 +44,8 @@ namespace PoliceWebApplication.Controllers
                 name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name
             }) ;
         }
+
+        [Authorize(Roles = "admin, user")]
         public ActionResult Export(int streetId)
         {
             using (XLWorkbook workbook = new XLWorkbook(XLEventTracking.Disabled))
@@ -95,6 +99,7 @@ namespace PoliceWebApplication.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin, user")]
         public async Task<IActionResult> Import(IFormFile fileExcel, int streetId)
         {
             if (ModelState.IsValid)
@@ -187,7 +192,8 @@ namespace PoliceWebApplication.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-        
+
+        [Authorize(Roles = "admin, user")]
         // GET: Departments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -208,6 +214,8 @@ namespace PoliceWebApplication.Controllers
             //return View(department);
         }
 
+
+        [Authorize(Roles = "admin")]
         // GET: Departments/Create
         public IActionResult Create(int streetId)
         {
@@ -222,6 +230,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("StreetId,House")] Department department)
         {
             int streetId = department.StreetId;
@@ -237,6 +246,7 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "Departments", new { id = streetId, name = _context.Streets.Where(s => s.Id == streetId).FirstOrDefault().Name });
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Departments/Edit/5
         public async Task<IActionResult> Edit(int streetId, int? deptId)
         {
@@ -261,6 +271,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int streetId, [Bind("Id,StreetId,House")] Department department)
         {
             //department.StreetId = streetId;
@@ -295,6 +306,7 @@ namespace PoliceWebApplication.Controllers
             //return View(department);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Departments/Delete/5
         public async Task<IActionResult> Delete(int streetId, int? deptId)
         {
@@ -321,6 +333,7 @@ namespace PoliceWebApplication.Controllers
         // POST: Departments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int streetId, int id)
         {
             var department = await _context.Departments.FindAsync(id);

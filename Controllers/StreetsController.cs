@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoliceWebApplication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PoliceWebApplication.Controllers
 {
@@ -18,6 +19,8 @@ namespace PoliceWebApplication.Controllers
             _context = context;
         }
 
+
+        [Authorize(Roles = "admin, user")]
         // GET: Streets
         public async Task<IActionResult> Index(int? id, string? name) 
         {
@@ -35,6 +38,8 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "Cities");
         }
         // GET: Streets/Details/5
+
+        [Authorize(Roles = "admin, user")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -53,7 +58,9 @@ namespace PoliceWebApplication.Controllers
             //return View(street);
             return RedirectToAction("Index", "Departments", new { id = street.Id, name = street.Name });
         }
-       
+
+
+        [Authorize(Roles = "admin")]
         // GET: Streets/Create
         public IActionResult Create(int cityId)
         {
@@ -68,6 +75,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,CityId")] Street street)
         {
             int cityId = street.CityId;
@@ -83,6 +91,7 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "Streets", new { id = cityId, name = _context.Cities.Where(c => c.Id == cityId).FirstOrDefault().Name });
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Streets/Edit/5
         public async Task<IActionResult> Edit(int cityId, int? streetId)
         {
@@ -109,6 +118,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int cityId, [Bind("Id,Name,CityId")] Street street)
         {
             //street.CityId = cityId;
@@ -144,6 +154,7 @@ namespace PoliceWebApplication.Controllers
             //return View(street);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: Streets/Delete/5
         public async Task<IActionResult> Delete(int cityId, int? streetId)
         { 
@@ -170,6 +181,7 @@ namespace PoliceWebApplication.Controllers
         // POST: Streets/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int cityId, int id)
         {
             var street = await _context.Streets.FindAsync(id);

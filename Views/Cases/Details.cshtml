@@ -30,6 +30,6 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Змінити", "Edit", new { investigatorId = ViewBag.InvestigatorId, caseId = ViewBag.CaseId }) |
+    @if (User.IsInRole("admin")) {@Html.ActionLink("Змінити |", "Edit", new { investigatorId = ViewBag.InvestigatorId, caseId = ViewBag.CaseId })}
     @Html.ActionLink("Назад", "Index", new { id = ViewBag.InvestigatorId, name = ViewBag.InvestigatorName })
 </div>

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PoliceWebApplication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PoliceWebApplication.Controllers
 {
@@ -18,6 +19,7 @@ namespace PoliceWebApplication.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = "admin, user")]
         // GET: CaseArticles
         public async Task<IActionResult> Index(int? id, int? caseId)
         {
@@ -38,6 +40,7 @@ namespace PoliceWebApplication.Controllers
             return NotFound();
         }
 
+        [Authorize(Roles = "admin")]
         // GET: CaseArticles/Create
         public IActionResult Create(int caseId)
         {
@@ -52,6 +55,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Create([Bind("Id,CaseId,ArticleId")] CaseArticle caseArticle)
         {
             int caseId = caseArticle.CaseId;
@@ -64,6 +68,7 @@ namespace PoliceWebApplication.Controllers
             return RedirectToAction("Index", "CaseArticles", new { id = _context.Cases.Where(c => c.Id == caseId).FirstOrDefault().InvestigatorId, caseId = caseId });
         }
 
+        [Authorize(Roles = "admin")]
         // GET: CaseArticles/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
@@ -75,6 +80,7 @@ namespace PoliceWebApplication.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,CaseId,ArticleId")] CaseArticle caseArticle)
         {
             if (id != caseArticle.Id)
@@ -107,6 +113,7 @@ namespace PoliceWebApplication.Controllers
             return View(caseArticle);
         }
 
+        [Authorize(Roles = "admin")]
         // GET: CaseArticles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -132,6 +139,7 @@ namespace PoliceWebApplication.Controllers
         // POST: CaseArticles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var caseArticle = await _context.CasesArticles.FindAsync(id);

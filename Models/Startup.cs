@@ -26,6 +26,8 @@ namespace PoliceWebApplication
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IUserValidator<User>, CustomUserValidator>();
+
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DBPoliceContext>(options => options.UseSqlServer(connection));
             services.AddControllersWithViews();
@@ -34,7 +36,16 @@ namespace PoliceWebApplication
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionIdentity));
             services.AddControllersWithViews();
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opts => {
+                opts.Password.RequiredLength = 5;   // минимальная длина
+                opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+                opts.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+                opts.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+                opts.Password.RequireDigit = false; // требуются ли цифры
+
+                opts.User.RequireUniqueEmail = true;
+                opts.User.AllowedUserNameCharacters = ".@abcdefghijklmnopqrstuvwxyz"; // допустимые символы
+            })
                 .AddEntityFrameworkStores<IdentityContext>();
         }
 
@@ -63,7 +74,7 @@ namespace PoliceWebApplication
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

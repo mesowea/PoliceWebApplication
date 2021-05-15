@@ -6,10 +6,32 @@
 
 <h1><img src="~/css/police.png" width="100" height="100"> Справи слідчого @ViewBag.InvestigatorName</h1>
 
-<p>
-    @Html.ActionLink("Додати нову справу", "Create", new { investigatorId = ViewBag.InvestigatorId })
-</p>
+@if (User.IsInRole("admin"))
+{
+    <a><font color="red">Адміністратор</font></a>
+}
+else if (User.IsInRole("user"))
+{
+    <a><font color="blue">Користувач</font></a>
+}
+<p>@User.Identity.Name</p>
 
+<form method="post" asp-controller="Account" asp-action="Logout">
+    <input type="submit" value="Вихід" />
+</form>
+
+@if (User.IsInRole("admin"))
+{
+    <div align="right">
+        <p><a class="btn btn-sm btn-outline-primary" asp-controller="Roles" asp-action="UserList">Керування користувачами</a></p>
+    </div>
+}
+@if (User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Додати нову справу", "Create", new { investigatorId = ViewBag.InvestigatorId })
+    </p>
+}
 <p>
     @Html.ActionLink("Назад", "Return", new { investigatorId = ViewBag.InvestigatorId })
 </p>
@@ -24,18 +46,21 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.ActionLink("Загальна інформація по справі", "Details", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
-                @Html.ActionLink("Статті", "Articles", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
-                @Html.ActionLink("Суб`єкти", "People", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })  |
-                @Html.ActionLink("Видалити", "Delete", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.ActionLink("Загальна інформація по справі", "Details", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
+                    @Html.ActionLink("Статті", "Articles", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id }) |
+                    @Html.ActionLink("Суб`єкти", "People", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })
+
+                    @if (User.IsInRole("admin"))
+                    {@Html.ActionLink("| Видалити", "Delete", new { investigatorId = ViewBag.InvestigatorId, caseId = item.Id })}
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
